@@ -6,11 +6,16 @@
             <name>ProyectoProWeb</name>
         </data>
         <spellchecker-wordlist xmlns="http://www.netbeans.org/ns/spellchecker-wordlist/1">
+            <word>Artículo</word>
             <word>Cancelar</word>
+            <word>Categoría</word>
+            <word>Código</word>
             <word>Descripción</word>
             <word>Estado</word>
             <word>formulario</word>
+            <word>Generar</word>
             <word>Guardar</word>
+            <word>Imagen</word>
             <word>Nombre</word>
             <word>Opciones</word>
         </spellchecker-wordlist>

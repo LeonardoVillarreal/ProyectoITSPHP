@@ -22,7 +22,8 @@
     <link href="../public/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>
     <link href="../public/datatables/buttons.dataTables.min.css" rel="stylesheet" type="text/css"/>    
     <link href="../public/datatables/responsive.dataTables.min.css" rel="stylesheet" type="text/css"/>
-    
+    <!--Bootstrap Select-->
+    <link href="../public/css/bootstrap-select.min.css" rel="stylesheet" type="text/css"/>
   </head>
   <body class="hold-transition skin-blue-light sidebar-mini">
     <div class="wrapper">

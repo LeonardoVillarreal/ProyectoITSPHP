@@ -19,6 +19,7 @@
     <script src="../public/datatables/pdfmake.min.js" type="text/javascript"></script>
     <script src="../public/datatables/vfs_fonts.js" type="text/javascript"></script>
     <script src="../public/js/bootbox.min.js" type="text/javascript"></script>
+    <script src="../public/js/bootstrap-select.min.js" type="text/javascript"></script>
   </body>
 </html>
 

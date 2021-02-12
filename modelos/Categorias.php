@@ -5,7 +5,7 @@ require "../config/Conexion.php";
 Class Categorias{
     //Implementar un constructor
     public function __construct() {
-        ;
+        
     }
         
     //Implementar un método para insertar registros
@@ -41,6 +41,11 @@ Class Categorias{
     //Implementar un método para listar todos los registros
     public function listar(){
         $sql = "SELECT * FROM categoria";
+        return ejecutarConsulta($sql);
+    }
+    
+    public function select(){
+        $sql = "SELECT * FROM categoria WHERE condicion = 1";
         return ejecutarConsulta($sql);
     }
 }
