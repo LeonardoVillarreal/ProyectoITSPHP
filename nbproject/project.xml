@@ -6,6 +6,7 @@
             <name>ProyectoProWeb</name>
         </data>
         <spellchecker-wordlist xmlns="http://www.netbeans.org/ns/spellchecker-wordlist/1">
+            <word>Administrador</word>
             <word>Artículo</word>
             <word>Cancelar</word>
             <word>Categoría</word>
@@ -18,6 +19,7 @@
             <word>Estado</word>
             <word>formulario</word>
             <word>Generar</word>
+            <word>Gerente</word>
             <word>Guardar</word>
             <word>Imagen</word>
             <word>Nombre</word>
@@ -28,6 +30,8 @@
             <word>RUC</word>
             <word>Teléfono</word>
             <word>Tipo</word>
+            <word>Usuario</word>
+            <word>Vendedor</word>
         </spellchecker-wordlist>
     </configuration>
 </project>
