@@ -9,15 +9,25 @@
             <word>Artículo</word>
             <word>Cancelar</word>
             <word>Categoría</word>
+            <word>CI</word>
+            <word>Cliente</word>
             <word>Código</word>
             <word>Descripción</word>
+            <word>Dirección</word>
+            <word>documento</word>
             <word>Estado</word>
             <word>formulario</word>
             <word>Generar</word>
             <word>Guardar</word>
             <word>Imagen</word>
             <word>Nombre</word>
+            <word>Número</word>
             <word>Opciones</word>
+            <word>Pasaporte</word>
+            <word>Proveedor</word>
+            <word>RUC</word>
+            <word>Teléfono</word>
+            <word>Tipo</word>
         </spellchecker-wordlist>
     </configuration>
 </project>
