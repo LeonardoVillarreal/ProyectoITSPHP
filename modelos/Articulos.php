@@ -44,4 +44,9 @@ class Articulos {
         $sql = "SELECT a.idarticulo, a.idcategoria,c.nombre as categoria, a.codigo,a.nombre,a.stock,a.descripcion,a.imagen,a.condicion FROM articulo a inner join categoria c on a.idcategoria=c.idcategoria";
         return ejecutarConsulta($sql);
     }
+    
+    public function select(){
+        $sql = "SELECT * FROM articulo WHERE condicion = 1";
+        return ejecutarConsulta($sql);
+    }
 }

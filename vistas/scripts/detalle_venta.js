@@ -9,19 +9,26 @@ function init(){
         guardarYeditar(e);
     });
     
-        $.post("../ajax/articulos.php?op=selectcategoria",function (r){
-            $("#idcategoria").html(r);
-            $("#idcategoria").selectpicker('refresh');
+    $.post("../ajax/detalle_ventas.php?op=selectventa",function (r){
+        $("#idventa").html(r);
+        $("#idventa").selectpicker('refresh');
     });
-    $("#imagenmuestra").hide();
+    
+    $.post("../ajax/detalle_ventas.php?op=selectarticulo",function (r){
+            $("#idarticulo").html(r);
+            $("#idarticulo").selectpicker('refresh');
+    });
 }
 
 //fución limpiar
 function limpiar(){
-    $("#codigo").val("");
-    $("#nombre").val("");
-    $("#stock").val("");
-    $("#descripcion").val("");
+    $("#iddetalle_venta").val("");
+    $("#idventa").val("");
+    $("#idarticulo").val("");
+    $("#cantidad").val("");
+    $("#precio_venta").val("");
+    $("#descuento").val("");
+
 }
 
 //función mostrar formulario
@@ -55,7 +62,7 @@ function listar(){
                 'pdf'
             ],
             "ajax":{
-                url:'../ajax/articulos.php?op=listar',
+                url:'../ajax/detalle_ventas.php?op=listar',
                 type:"get",
                 dataType:"json",
                 error:function(e){
@@ -74,7 +81,7 @@ function guardarYeditar(e){
     var formData = new FormData($("#formulario")[0]);
     
     $.ajax({
-        url : '../ajax/articulos.php?op=guardaryeditar',
+        url : '../ajax/detalle_ventas.php?op=guardaryeditar',
         type : "POST",
         data: formData,
         contentType: false,
@@ -89,27 +96,26 @@ function guardarYeditar(e){
     limpiar();
 }
 
-function mostrar(idarticulo){
-    $.post("../ajax/articulos.php?op=mostrar", {idarticulo : idarticulo}, function(data, status){
+function mostrar(iddetalle_venta){
+    $.post("../ajax/detalle_ventas.php?op=mostrar", {iddetalle_venta : iddetalle_venta}, function(data, status){
        data = JSON.parse(data);
         mostrarForm(true);
-        $("#idcategoria").val(data.idcategoria);
-        $("#idcategoria").selectpicker('refresh');
-        $("#codigo").val(data.codigo);
-        $("#nombre").val(data.nombre);
-        $("#stock").val(data.stock);
-        $("#descripcion").val(data.descripcion);
-        $("#imagenmuestra").show();
-        $("#imagenmuestra").attr("src","../files/articulos/"+data.imagen);
+        $("#idventa").val(data.idventa);
+        $("#idventa").selectpicker('refresh');
         $("#idarticulo").val(data.idarticulo);
+        $("#idarticulo").selectpicker('refresh');
+        $("#cantidad").val(data.cantidad);
+        $("#precio_venta").val(data.precio_venta);
+        $("#descuento").val(data.descuento);
+        $("#iddetalle_venta").val(data.iddetalle_venta);
     });
 }
 
 //Función para desactivar categoría
-function desactivar(idarticulo){
-    bootbox.confirm("¿Está seguro que deseas desactivar este artículo?", function(result){
+function desactivar(iddetalle_venta){
+    bootbox.confirm("¿Está seguro que deseas desactivar este detalle de venta?", function(result){
         if(result){
-          $.post("../ajax/articulos.php?op=desactivar", {idarticulo:idarticulo}, function(e){
+          $.post("../ajax/detalle_ventas.php?op=desactivar", {iddetalle_venta:iddetalle_venta}, function(e){
               bootbox.alert(e);
               tabla.ajax.reload();
           });         
@@ -117,10 +123,10 @@ function desactivar(idarticulo){
     });
 }
 //Función para activar categoría
-function activar(idarticulo){
-    bootbox.confirm("¿Está seguro que deseas activar el artículo?", function(result){
+function activar(iddetalle_venta){
+    bootbox.confirm("¿Está seguro que deseas activar este detalle de venta?", function(result){
         if(result){
-          $.post("../ajax/articulos.php?op=activar", {idarticulo:idarticulo}, function(e){
+          $.post("../ajax/detalle_ventas.php?op=activar", {iddetalle_venta:iddetalle_venta}, function(e){
                 bootbox.alert(e);
                 tabla.ajax.reload();
           });
@@ -128,11 +134,5 @@ function activar(idarticulo){
     });
 }
 
-function generarBarCode(){
-    codigo = $("#codigo").val();
-    JsBarcode("#barcode",codigo);
-}
 init();
-
-
 

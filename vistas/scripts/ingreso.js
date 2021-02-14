@@ -9,19 +9,28 @@ function init(){
         guardarYeditar(e);
     });
     
-        $.post("../ajax/articulos.php?op=selectcategoria",function (r){
-            $("#idcategoria").html(r);
-            $("#idcategoria").selectpicker('refresh');
+    $.post("../ajax/ingresos.php?op=selectproveedor",function (r){
+        $("#idproveedor").html(r);
+        $("#idproveedor").selectpicker('refresh');
     });
-    $("#imagenmuestra").hide();
+    
+    $.post("../ajax/ingresos.php?op=selectusuario",function (r){
+            $("#idusuario").html(r);
+            $("#idusuario").selectpicker('refresh');
+    });
 }
 
 //fución limpiar
 function limpiar(){
-    $("#codigo").val("");
-    $("#nombre").val("");
-    $("#stock").val("");
-    $("#descripcion").val("");
+    $("#idingreso").val("");
+    $("#idproveedor").val("");
+    $("#idusuario").val("");
+    $("#tipo_comprobante").val("");
+    $("#serie_comprobante").val("");
+    $("#num_comprobante").val("");
+    $("#fecha_hora").val("");
+    $("#impuesto").val("");
+    $("#total_compra").val("");
 }
 
 //función mostrar formulario
@@ -55,7 +64,7 @@ function listar(){
                 'pdf'
             ],
             "ajax":{
-                url:'../ajax/articulos.php?op=listar',
+                url:'../ajax/ingresos.php?op=listar',
                 type:"get",
                 dataType:"json",
                 error:function(e){
@@ -74,7 +83,7 @@ function guardarYeditar(e){
     var formData = new FormData($("#formulario")[0]);
     
     $.ajax({
-        url : '../ajax/articulos.php?op=guardaryeditar',
+        url : '../ajax/ingresos.php?op=guardaryeditar',
         type : "POST",
         data: formData,
         contentType: false,
@@ -89,27 +98,29 @@ function guardarYeditar(e){
     limpiar();
 }
 
-function mostrar(idarticulo){
-    $.post("../ajax/articulos.php?op=mostrar", {idarticulo : idarticulo}, function(data, status){
+function mostrar(idingreso){
+    $.post("../ajax/ingresos.php?op=mostrar", {idingreso : idingreso}, function(data, status){
        data = JSON.parse(data);
         mostrarForm(true);
-        $("#idcategoria").val(data.idcategoria);
-        $("#idcategoria").selectpicker('refresh');
-        $("#codigo").val(data.codigo);
-        $("#nombre").val(data.nombre);
-        $("#stock").val(data.stock);
-        $("#descripcion").val(data.descripcion);
-        $("#imagenmuestra").show();
-        $("#imagenmuestra").attr("src","../files/articulos/"+data.imagen);
-        $("#idarticulo").val(data.idarticulo);
+        $("#idproveedor").val(data.idproveedor);
+        $("#idproveedor").selectpicker('refresh');
+        $("#idusuario").val(data.idusuario);
+        $("#idusuario").selectpicker('refresh');
+        $("#tipo_comprobante").val(data.tipo_comprobante);
+        $("#serie_comprobante").val(data.serie_comprobante);
+        $("#num_comprobante").val(data.num_comprobante);
+        $("#fecha_hora").val(data.fecha_hora);
+        $("#impuesto").val(data.impuesto);
+        $("#total_compra").val(data.total_compra);
+        $("#idingreso").val(data.idingreso);
     });
 }
 
 //Función para desactivar categoría
-function desactivar(idarticulo){
-    bootbox.confirm("¿Está seguro que deseas desactivar este artículo?", function(result){
+function desactivar(idingreso){
+    bootbox.confirm("¿Está seguro que deseas desactivar este ingreso?", function(result){
         if(result){
-          $.post("../ajax/articulos.php?op=desactivar", {idarticulo:idarticulo}, function(e){
+          $.post("../ajax/ingresos.php?op=desactivar", {idingreso:idingreso}, function(e){
               bootbox.alert(e);
               tabla.ajax.reload();
           });         
@@ -117,10 +128,10 @@ function desactivar(idarticulo){
     });
 }
 //Función para activar categoría
-function activar(idarticulo){
-    bootbox.confirm("¿Está seguro que deseas activar el artículo?", function(result){
+function activar(idingreso){
+    bootbox.confirm("¿Está seguro que deseas activar el ingreso?", function(result){
         if(result){
-          $.post("../ajax/articulos.php?op=activar", {idarticulo:idarticulo}, function(e){
+          $.post("../ajax/ingresos.php?op=activar", {idingreso:idingreso}, function(e){
                 bootbox.alert(e);
                 tabla.ajax.reload();
           });
@@ -128,11 +139,5 @@ function activar(idarticulo){
     });
 }
 
-function generarBarCode(){
-    codigo = $("#codigo").val();
-    JsBarcode("#barcode",codigo);
-}
 init();
-
-
 

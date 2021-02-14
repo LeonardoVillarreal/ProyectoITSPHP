@@ -45,8 +45,13 @@ Class Personas{
         return ejecutarConsulta($sql);
     }
     
-    public function select(){
-        $sql = "SELECT * FROM persona WHERE condicion = 1";
+    public function selectProveedor(){
+        $sql = "SELECT * FROM persona WHERE tipo_persona LIKE 'Proveedor' AND condicion = 1";
+        return ejecutarConsulta($sql);
+    }
+    
+    public function selectCliente(){
+        $sql = "SELECT * FROM persona WHERE tipo_persona LIKE 'Cliente' AND condicion = 1";
         return ejecutarConsulta($sql);
     }
 }
