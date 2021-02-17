@@ -16,8 +16,7 @@ Class Ingresos{
     
     //Implementar un método para actualizar registros
     public function actualizar($id,$idproveedor,$idusuario,$tipo_comprobante,$serie_comprobante,$num_comprobante,$fecha_hora,$impuesto,$total_compra){
-        $sql = "UPDATE ingreso SET idproveedor='$idproveedor',idusuario='$idusuario',tipo_comprobante='$tipo_comprobante',serie_comprobante='$serie_comprobante',num_comprobante='$num_comprobante',fecha_hora='$fecha_hora',impuesto='$impuesto',total_compra='$total_compra'"
-                . "WHERE idingreso='$id'";
+        $sql = "UPDATE ingreso SET idproveedor='$idproveedor',idusuario='$idusuario',tipo_comprobante='$tipo_comprobante',serie_comprobante='$serie_comprobante',num_comprobante='$num_comprobante',fecha_hora='$fecha_hora',impuesto='$impuesto',total_compra='$total_compra' WHERE idingreso='$id'";
         return ejecutarConsulta($sql);
     }
     

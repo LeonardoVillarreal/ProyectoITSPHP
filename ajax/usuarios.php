@@ -12,15 +12,25 @@ $email = isset($_POST["email"])?limpiarCadenas($_POST["email"]): " ";
 $cargo = isset($_POST["cargo"])?limpiarCadenas($_POST["cargo"]): " ";
 $login = isset($_POST["login"])?limpiarCadenas($_POST["login"]): " ";
 $clave = isset($_POST["clave"])?limpiarCadenas($_POST["clave"]): " ";
+$imagen = isset($_POST["imagen"])?limpiarCadenas($_POST["imagen"]):" ";
 
 switch ($_GET["op"]) {
     
     case 'guardaryeditar':
+        if(!file_exists($_FILES['imagen']['tmp_name']) || !is_uploaded_file($_FILES['imagen']['tmp_name'])){
+            $imagen= $_POST["imagenactual"];
+        }else{
+            $ext = explode(".", $_FILES["imagen"]["name"]);
+            if($_FILES['imagen']['type']=="image/jpg" || $_FILES['imagen']['type']=="image/png" || $_FILES['imagen']['type']=="image/jpeg"){
+                $imagen = round(microtime(true).'.'. end($ext));
+                move_uploaded_file($_FILES["imagen"]["tmp_name"], "../files/usuarios/".$imagen);
+            }
+        }
         if(empty($idusuario)){
-            $respuesta=$usuario->insertar($nombre,$tipo_documento,$num_documento,$direccion,$telefono,$email,$cargo,$login,$clave);            
+            $respuesta=$usuario->insertar($nombre,$tipo_documento,$num_documento,$direccion,$telefono,$email,$cargo,$login,$clave,$imagen);            
             echo $respuesta ? "Usuario registrado" : "Usuario no registrado";
         }else{
-            $respuesta=$usuario->actualizar($idusuario,$nombre,$tipo_documento,$num_documento,$direccion,$telefono,$email,$cargo,$login,$clave);
+            $respuesta=$usuario->actualizar($idusuario,$nombre,$tipo_documento,$num_documento,$direccion,$telefono,$email,$cargo,$login,$clave,$imagen);
             echo $respuesta ? "Usuario actualizado" : "Usuario no actualizado";
         }
         break;
@@ -56,7 +66,8 @@ switch ($_GET["op"]) {
                 "7"=>$reg->cargo,
                 "8"=>$reg->login,
                 "9"=>$reg->clave,
-                "10"=>$reg->condicion ?'<span class="label bg-green">Activado</span>':'<span class="label bg-red">Desactivado</span>'
+                "10"=>"<img src='../files/usuarios/".$reg->imagen."' height='50px' width='50px'>",
+                "11"=>$reg->condicion ?'<span class="label bg-green">Activado</span>':'<span class="label bg-red">Desactivado</span>'
                     );
         }
         

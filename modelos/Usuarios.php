@@ -9,16 +9,16 @@ Class Usuarios{
     }
         
     //Implementar un método para insertar registros
-    public function insertar($nombre,$tipo_documento,$num_documento,$direccion,$telefono,$email,$cargo,$login,$clave){
-        $sql = "INSERT INTO usuario (nombre,tipo_documento,num_documento,direccion,telefono,email,cargo,login,clave,condicion) "
-                . "VALUES('$nombre','$tipo_documento','$num_documento','$direccion','$telefono','$email','$cargo','$login','$clave','1')";
+    public function insertar($nombre,$tipo_documento,$num_documento,$direccion,$telefono,$email,$cargo,$login,$clave,$imagen){
+        $sql = "INSERT INTO usuario (nombre,tipo_documento,num_documento,direccion,telefono,email,cargo,login,clave,imagen,condicion) "
+                . "VALUES('$nombre','$tipo_documento','$num_documento','$direccion','$telefono','$email','$cargo','$login','$clave','$imagen',1')";
         return ejecutarConsulta($sql);
     }
     
     //Implementar un método para actualizar registros
-    public function actualizar($id,$nombre,$tipo_documento,$num_documento,$direccion,$telefono,$email,$cargo,$login,$clave){
+    public function actualizar($id,$nombre,$tipo_documento,$num_documento,$direccion,$telefono,$email,$cargo,$login,$clave,$imagen){
         $sql = "UPDATE usuario SET nombre='$nombre',tipo_documento='$tipo_documento',num_documento='$num_documento',"
-                . "direccion='$direccion',telefono='$telefono',email='$email', cargo='$cargo',login='$login',clave='$clave'"
+                . "direccion='$direccion',telefono='$telefono',email='$email', cargo='$cargo',login='$login',clave='$clave',imagen='$imagen'"
                 . "WHERE idusuario='$id'";
         return ejecutarConsulta($sql);
     }

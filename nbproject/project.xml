@@ -7,6 +7,7 @@
         </data>
         <spellchecker-wordlist xmlns="http://www.netbeans.org/ns/spellchecker-wordlist/1">
             <word>Administrador</word>
+            <word>Agregar</word>
             <word>Artículo</word>
             <word>Cancelar</word>
             <word>Cantidad</word>
@@ -37,6 +38,8 @@
             <word>Número</word>
             <word>Opciones</word>
             <word>Pasaporte</word>
+            <word>Permiso</word>
+            <word>Permisos</word>
             <word>Precio</word>
             <word>Proveedor</word>
             <word>RUC</word>
@@ -44,6 +47,7 @@
             <word>Teléfono</word>
             <word>Tipo</word>
             <word>Usuario</word>
+            <word>Usuarios</word>
             <word>Vendedor</word>
             <word>Venta</word>
         </spellchecker-wordlist>

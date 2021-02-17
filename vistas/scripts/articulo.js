@@ -22,6 +22,8 @@ function limpiar(){
     $("#nombre").val("");
     $("#stock").val("");
     $("#descripcion").val("");
+    $("#imagenmuestra").attr('src',"");
+    $("#imagenactual").val("");
 }
 
 //función mostrar formulario
