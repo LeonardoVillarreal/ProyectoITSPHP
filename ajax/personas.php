@@ -49,10 +49,9 @@ switch ($_GET["op"]) {
                 "2"=>$reg->nombre,
                 "3"=>$reg->tipo_documento,
                 "4"=>$reg->num_documento,
-                "5"=>$reg->direccion,
-                "6"=>$reg->telefono,
-                "7"=>$reg->email,
-                "8"=>$reg->condicion ?'<span class="label bg-green">Activado</span>':'<span class="label bg-red">Desactivado</span>'
+                "5"=>$reg->telefono,
+                "6"=>$reg->email,
+                "7"=>$reg->condicion ?'<span class="label bg-green">Activado</span>':'<span class="label bg-red">Desactivado</span>'
                     );
         }
         

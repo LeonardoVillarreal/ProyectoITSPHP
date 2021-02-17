@@ -60,14 +60,11 @@ switch ($_GET["op"]) {
                 "1"=>$reg->nombre,
                 "2"=>$reg->tipo_documento,
                 "3"=>$reg->num_documento,
-                "4"=>$reg->direccion,
-                "5"=>$reg->telefono,
-                "6"=>$reg->email,
-                "7"=>$reg->cargo,
-                "8"=>$reg->login,
-                "9"=>$reg->clave,
-                "10"=>"<img src='../files/usuarios/".$reg->imagen."' height='50px' width='50px'>",
-                "11"=>$reg->condicion ?'<span class="label bg-green">Activado</span>':'<span class="label bg-red">Desactivado</span>'
+                "4"=>$reg->telefono,
+                "5"=>$reg->email,
+                "6"=>$reg->login,
+                "7"=>"<img src='../files/usuarios/".$reg->imagen."' height='50px' width='50px'>",
+                "8"=>$reg->condicion ?'<span class="label bg-green">Activado</span>':'<span class="label bg-red">Desactivado</span>'
                     );
         }
         
