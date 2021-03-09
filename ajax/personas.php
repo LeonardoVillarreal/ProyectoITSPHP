@@ -22,6 +22,11 @@ switch ($_GET["op"]) {
             echo $respuesta ? "Persona actualizada" : "Persona no actualizada";
         }
         break;
+        
+    case 'eliminar':
+        $rspta=$persona->eliminar($idpersona);
+        echo $rspta ? "Persona eliminada" : "Persona no se puede eliminar";
+	break;
     case 'desactivar':
         $respuesta=$persona->desactivar($idpersona);
         echo $respuesta ? "Persona desactivada" : "Persona no se pudo desactivar";
@@ -35,33 +40,54 @@ switch ($_GET["op"]) {
         //Codificar con json
         echo json_encode($respuesta);
         break;
-    case 'listar':
-        $respuesta=$persona->listar();
+    case 'listarp':
+		$rspta=$persona->selectProveedor();
+ 		//Vamos a declarar un array
+ 		$data= Array();
+
+ 		while ($reg=$rspta->fetch_object()){
+ 			$data[]=array(
+ 				"0"=>'<button class="btn btn-warning" onclick="mostrar('.$reg->idpersona.')"><i class="fa fa-pencil"></i></button>'.
+ 					' <button class="btn btn-danger" onclick="eliminar('.$reg->idpersona.')"><i class="fa fa-trash"></i></button>',
+ 				"1"=>$reg->nombre,
+ 				"2"=>$reg->tipo_documento,
+ 				"3"=>$reg->num_documento,
+ 				"4"=>$reg->telefono,
+ 				"5"=>$reg->email
+ 				);
+ 		}
+ 		$results = array(
+ 			"sEcho"=>1, //Información para el datatables
+ 			"iTotalRecords"=>count($data), //enviamos el total registros al datatable
+ 			"iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+ 			"aaData"=>$data);
+ 		echo json_encode($results);
+
+	break;
         
-        $data = array();
-        while($reg = $respuesta->fetch_object()){
-            $data[]=array(
-                "0"=>$reg->condicion ?'<button class="btn btn-warning" onclick="mostrar('.$reg->idpersona.')"><i class="fa fa-pencil"></i></button>'.
-                     '  <button class="btn btn-danger" onclick="desactivar('.$reg->idpersona.')"><i class="fa fa-close"></i></button>':
-                     '<button class="btn btn-warning" onclick="mostrar('.$reg->idpersona.')"><i class="fa fa-pencil"></i></button>'.
-                     '  <button class="btn btn-primary" onclick="activar('.$reg->idpersona.')"><i class="fa fa-check"></i></button>',
-                "1"=>$reg->tipo_persona,
-                "2"=>$reg->nombre,
-                "3"=>$reg->tipo_documento,
-                "4"=>$reg->num_documento,
-                "5"=>$reg->telefono,
-                "6"=>$reg->email,
-                "7"=>$reg->condicion ?'<span class="label bg-green">Activado</span>':'<span class="label bg-red">Desactivado</span>'
-                    );
-        }
-        
-        $results=array(
-            "sEcho"=>1,//Información para datatable
-            "iTotalRecords"=> count($data),//enviamos el total de registros al datatable
-            "iTotalDisplayRecords"=> count($data),//enviamos el total de registros a visualizar
-            "aaData"=>$data);
-        
-        echo json_encode($results);
-        break;
+        case 'listarc':
+		$rspta=$persona->selectCliente();
+ 		//Vamos a declarar un array
+ 		$data= Array();
+
+ 		while ($reg=$rspta->fetch_object()){
+ 			$data[]=array(
+ 				"0"=>'<button class="btn btn-warning" onclick="mostrar('.$reg->idpersona.')"><i class="fa fa-pencil"></i></button>'.
+ 					' <button class="btn btn-danger" onclick="eliminar('.$reg->idpersona.')"><i class="fa fa-trash"></i></button>',
+ 				"1"=>$reg->nombre,
+ 				"2"=>$reg->tipo_documento,
+ 				"3"=>$reg->num_documento,
+ 				"4"=>$reg->telefono,
+ 				"5"=>$reg->email
+ 				);
+ 		}
+ 		$results = array(
+ 			"sEcho"=>1, //Información para el datatables
+ 			"iTotalRecords"=>count($data), //enviamos el total registros al datatable
+ 			"iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+ 			"aaData"=>$data);
+ 		echo json_encode($results);
+
+	break;
 }
 ?>

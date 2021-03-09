@@ -24,6 +24,8 @@ function limpiar(){
     $("#descripcion").val("");
     $("#imagenmuestra").attr('src',"");
     $("#imagenactual").val("");
+    $("#print").hide();
+    $("#idarticulo").val("");
 }
 
 //función mostrar formulario
@@ -33,9 +35,11 @@ function mostrarForm(flag){
         $("#listadoregistros").hide();
         $("#formularioregistros").show();
         $("#btnGuardar").prop("disabled",false);
+        $("#btnAgregar").hide();
     }else{
         $("#listadoregistros").show();
         $("#formularioregistros").hide();
+        $("#btnAgregar").show();
     }
 }
 
@@ -72,7 +76,7 @@ function listar(){
 
 function guardarYeditar(e){
     e.preventDefault();//No se ejecuta la acción predeterminada
-    $('#btnGuardar').prop("disabled",true);
+    $("#btnGuardar").prop("disabled",true);
     var formData = new FormData($("#formulario")[0]);
     
     $.ajax({
@@ -103,7 +107,9 @@ function mostrar(idarticulo){
         $("#descripcion").val(data.descripcion);
         $("#imagenmuestra").show();
         $("#imagenmuestra").attr("src","../files/articulos/"+data.imagen);
+        $("#imagenactual").val(data.imagen);
         $("#idarticulo").val(data.idarticulo);
+        generarBarCode();
     });
 }
 
@@ -133,6 +139,11 @@ function activar(idarticulo){
 function generarBarCode(){
     codigo = $("#codigo").val();
     JsBarcode("#barcode",codigo);
+}
+//Función para imprimir el Código de barras
+function imprimir()
+{
+	$("#print").printArea();
 }
 init();
 

@@ -9,6 +9,9 @@ function init(){
         guardarYeditar(e);
     });
     $("#imagenmuestra").hide();
+    $.post("../ajax/usuarios.php?op=permisos&id=", function (r){
+        $("#permisos").html(r);
+    });
 }
 
 //fución limpiar
@@ -33,9 +36,11 @@ function mostrarForm(flag){
         $("#listadoregistros").hide();
         $("#formularioregistros").show();
         $("#btnGuardar").prop("disabled",false);
+        $("#btnAgregar").hide();
     }else{
         $("#listadoregistros").show();
         $("#formularioregistros").hide();
+        $("#btnAgregar").show();
     }
 }
 
@@ -83,7 +88,8 @@ function guardarYeditar(e){
         processData: false,
         
         success: function(datos){
-            bootbox.alert(datos);
+            confirm(datos);
+            window.location.href='../index.php';
             mostrarForm(false);
             tabla.ajax.reload();
         }
@@ -92,6 +98,7 @@ function guardarYeditar(e){
 }
 
 function mostrar(idusuario){
+    
     $.post("../ajax/usuarios.php?op=mostrar", {idusuario : idusuario}, function(data, status){
        data = JSON.parse(data);
         mostrarForm(true);       
@@ -104,12 +111,14 @@ function mostrar(idusuario){
         $("#email").val(data.email);
         $("#cargo").val(data.cargo);
         $("#cargo").selectpicker('refresh');
-        $("#login").val(data.login);
-        $("#clave").val(data.clave);
+        $("#login").val(data.login);       
         $("#imagenmuestra").show();
         $("#imagenmuestra").attr("src","../files/usuarios/"+data.imagen);
         $("#imagenactual").val(data.imagen);
         $("#idusuario").val(data.idusuario);
+    });
+    $.post("../ajax/usuarios.php?op=permisos&id="+idusuario, function (r){
+        $("#permisos").html(r);
     });
 }
 

@@ -29,9 +29,11 @@ function mostrarForm(flag){
         $("#listadoregistros").hide();
         $("#formularioregistros").show();
         $("#btnGuardar").prop("disabled",false);
+        $("#btnAgregar").hide();
     }else{
         $("#listadoregistros").show();
         $("#formularioregistros").hide();
+        $("#btnAgregar").show();
     }
 }
 
@@ -53,7 +55,7 @@ function listar(){
                 'pdf'
             ],
             "ajax":{
-                url:'../ajax/personas.php?op=listar',
+                url:'../ajax/personas.php?op=listarp',
                 type:"get",
                 dataType:"json",
                 error:function(e){
@@ -91,9 +93,10 @@ function mostrar(idpersona){
     $.post("../ajax/personas.php?op=mostrar", {idpersona : idpersona}, function(data, status){
        data = JSON.parse(data);
         mostrarForm(true);
-        $("#tipo_persona").val(data.tipo_persona);
+
         $("#nombre").val(data.nombre);
         $("#tipo_documento").val(data.tipo_documento);
+        $("#tipo_documento").selectpicker('refresh');
         $("#num_documento").val(data.num_documento);
         $("#direccion").val(data.direccion);
         $("#telefono").val(data.telefono);
@@ -102,27 +105,18 @@ function mostrar(idpersona){
     });
 }
 
-//Función para desactivar categoría
-function desactivar(idpersona){
-    bootbox.confirm("¿Está seguro que deseas desactivar esta persona?", function(result){
-        if(result){
-          $.post("../ajax/personas.php?op=desactivar", {idpersona:idpersona}, function(e){
-              bootbox.alert(e);
-              tabla.ajax.reload();
-          });         
+//Función para eliminar registros
+function eliminar(idpersona)
+{
+	bootbox.confirm("¿Está Seguro de eliminar el proveedor?", function(result){
+		if(result)
+        {
+        	$.post("../ajax/personas.php?op=eliminar", {idpersona : idpersona}, function(e){
+        		bootbox.alert(e);
+	            tabla.ajax.reload();
+        	});	
         }
-    });
-}
-//Función para activar categoría
-function activar(idpersona){
-    bootbox.confirm("¿Está seguro que deseas activar esta persona?", function(result){
-        if(result){
-          $.post("../ajax/personas.php?op=activar", {idpersona:idpersona}, function(e){
-                bootbox.alert(e);
-                tabla.ajax.reload();
-          });
-        }
-    });
+	})
 }
 init();
 

@@ -54,5 +54,11 @@ Class Personas{
         $sql = "SELECT * FROM persona WHERE tipo_persona LIKE 'Cliente' AND condicion = 1";
         return ejecutarConsulta($sql);
     }
+    
+    public function eliminar($idpersona)
+    {
+        $sql="DELETE FROM persona WHERE idpersona='$idpersona'";
+        return ejecutarConsulta($sql);
+    }
 }
 ?>

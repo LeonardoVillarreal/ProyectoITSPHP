@@ -1,6 +1,17 @@
 <?php
+ob_start();
+session_start();
+if(!isset($_SESSION["nombre"])){
+    header("Location: login.html");
+}else{
+    
+
    require 'header.php'; 
-    ?>
+   
+   if($_SESSION['almacen']==1){
+       
+   
+?>
 <!--Contenido-->
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
@@ -69,6 +80,13 @@
   
   
   <?php
+   }else{
+       require 'noacceso.php';
+   }
    require 'footer.php'; 
     ?>
   <script src="scripts/categoria.js" type="text/javascript"></script>
+  <?php
+}
+ob_end_flush();
+  ?>

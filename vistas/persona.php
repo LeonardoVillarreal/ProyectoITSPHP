@@ -1,6 +1,17 @@
 <?php
+ob_start();
+session_start();
+if(!isset($_SESSION["nombre"])){
+    header("Location: login.html");
+}else{
+    
+
    require 'header.php'; 
-    ?>
+   
+   if($_SESSION['compras']==1){
+       
+   
+?>
 <!--Contenido-->
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
@@ -21,68 +32,56 @@
                         <table id="tbllistado" class="table table-striped table-bordered table-condensed table-hover">
                             <thead>
                                 <th>Opciones</th>
-                                <th>Tipo Persona</th>
                                 <th>Nombre</th>
-                                <th>Tipo documento</th>
-                                <th>Número documento</th>
-                                <th>Dirección</th>
+                                <th>Documento</th>
+                                <th>Número</th>
                                 <th>Teléfono</th>
                                 <th>Email</th>
-                                <th>Estado</th>
                             </thead>
                             <tbody>
                                 
                             </tbody>
                             <tfoot>
                                 <th>Opciones</th>
-                                <th>Tipo Persona</th>
                                 <th>Nombre</th>
-                                <th>Tipo documento</th>
-                                <th>Número documento</th>
-                                <th>Dirección</th>
+                                <th>Documento</th>
+                                <th>Número</th>
                                 <th>Teléfono</th>
                                 <th>Email</th>
-                                <th>Estado</th>
                             </tfoot>
                         </table>
                     </div>
                     <div class="panel-body" style="height: 400px;" id="formularioregistros">
                         <form name="formulario" id="formulario" method="POST">
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <label>Tipo Persona:</label>
-                            <input type="hidden" name="idpersona" id="idpersona">
-                            <select class="form-control selectpicker" name="tipo_persona" id="tipo_persona" required="required">
-                                <option>Cliente</option>
-                                <option>Proveedor</option>
-                            </select>
-                          </div>
-                          <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label>Nombre:</label>
-                            <input type="text" class="form-control" name="nombre" id="nombre" maxlength="100" placeholder="Nombre" required="required">
+                            <input type="hidden" name="idpersona" id="idpersona">
+                            <input type="hidden" name="tipo_persona" id="tipo_persona" value="Proveedor">
+                            <input type="text" class="form-control" name="nombre" id="nombre" maxlength="100" placeholder="Nombre del proveedor" required>
                           </div>
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label>Tipo Documento:</label>
-                            <select class="form-control selectpicker" name="tipo_documento" id="tipo_documento" required="required">
-                                <option>CI</option>
-                                <option>RUC</option>
-                                <option>Pasaporte</option>
+                            <select class="form-control select-picker" name="tipo_documento" id="tipo_documento" required>
+                              <option value="DNI">DNI</option>
+                              <option value="RUC">RUC</option>
+                              <option value="CEDULA">CEDULA</option>
                             </select>
                           </div>
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label>Número Documento:</label>
-                            <input type="text" class="form-control" name="num_documento" id="num_documento" maxlength="20" placeholder="Número de Documento" required="required">
+                            <input type="text" class="form-control" name="num_documento" id="num_documento" maxlength="20" placeholder="Documento">
                           </div>
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label>Dirección:</label>
-                            <input type="text" class="form-control" name="direccion" id="direccion" maxlength="70" placeholder="Dirección" required="required">
+                            <input type="text" class="form-control" name="direccion" id="direccion" maxlength="70" placeholder="Dirección">
                           </div>
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label>Teléfono:</label>
-                            <input type="tel" class="form-control" name="telefono" id="telefono" maxlength="20" placeholder="Teléfono" required="required">
+                            <input type="text" class="form-control" name="telefono" id="telefono" maxlength="20" placeholder="Teléfono">
                           </div>
                           <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <label>Email:</label>
-                            <input type="email" class="form-control" name="email" id="email" maxlength="50" placeholder="Email" required="required">
+                            <input type="email" class="form-control" name="email" id="email" maxlength="50" placeholder="Email">
                           </div>
                           <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <button class="btn btn-primary" type="submit" id="btnGuardar">
@@ -106,6 +105,13 @@
   
   
   <?php
+   }else{
+       require 'noacceso.php';
+   }
    require 'footer.php'; 
     ?>
   <script src="scripts/persona.js" type="text/javascript"></script>
+  <?php
+}
+ob_end_flush();
+  ?>

@@ -9,45 +9,53 @@ Class Ventas{
     }
         
     //Implementar un método para insertar registros
-    public function insertar($idcliente,$idusuario,$tipo_comprobante,$serie_comprobante,$num_comprobante,$fecha_hora,$impuesto,$total_venta){
-        $sql = "INSERT INTO venta (idcliente,idusuario,tipo_comprobante,serie_comprobante,num_comprobante,fecha_hora,impuesto,total_venta,condicion) VALUES('$idcliente','$idusuario','$tipo_comprobante','$serie_comprobante','$num_comprobante','$fecha_hora','$impuesto','$total_venta','1')";
-        return ejecutarConsulta($sql);
+    public function insertar($idcliente,$idusuario,$tipo_comprobante,$serie_comprobante,$num_comprobante,$fecha_hora,$impuesto,$total_venta,$idarticulo,$cantidad,$precio_venta,$descuento)
+    {
+        $sql="INSERT INTO venta (idcliente,idusuario,tipo_comprobante,serie_comprobante,num_comprobante,fecha_hora,impuesto,total_venta,estado)
+        VALUES ('$idcliente','$idusuario','$tipo_comprobante','$serie_comprobante','$num_comprobante','$fecha_hora','$impuesto','$total_venta','Aceptado')";
+
+        $idventanew=ejecutarConsulta_retornarID($sql);
+
+        $num_elementos=0;
+        $sw=true;
+
+        while ($num_elementos < count($idarticulo))
+        {
+            $sql_detalle = "INSERT INTO detalle_venta(idventa, idarticulo,cantidad,precio_venta,descuento) VALUES ('$idventanew', '$idarticulo[$num_elementos]','$cantidad[$num_elementos]','$precio_venta[$num_elementos]','$descuento[$num_elementos]')";
+            ejecutarConsulta($sql_detalle) or $sw = false;
+            $num_elementos=$num_elementos + 1;
+        }
+
+        return $sw;
     }
     
-    //Implementar un método para actualizar registros
-    public function actualizar($id,$idcliente,$idusuario,$tipo_comprobante,$serie_comprobante,$num_comprobante,$fecha_hora,$impuesto,$total_venta){
-        $sql = "UPDATE venta SET idcliente='$idcliente',idusuario='$idusuario',tipo_comprobante='$tipo_comprobante',serie_comprobante='$serie_comprobante',num_comprobante='$num_comprobante',fecha_hora='$fecha_hora',impuesto='$impuesto',total_venta='$total_venta'"
-                . "WHERE idventa='$id'";
+    //Implementar un método para anular registros
+    public function anular($idventa)
+    {
+        $sql="UPDATE venta SET estado='Anulado' WHERE idventa='$idventa'";
         return ejecutarConsulta($sql);
     }
+
     
     //Implementar un método para mostrar un registro
-    public function mostrar($id){
-        $sql = "SELECT * FROM venta WHERE idventa='$id'";
+    public function mostrar($idventa)
+    {
+        $sql="SELECT v.idventa,DATE(v.fecha_hora) as fecha,v.idcliente,p.nombre as cliente,u.idusuario,u.nombre as usuario,v.tipo_comprobante,v.serie_comprobante,v.num_comprobante,v.total_venta,v.impuesto,v.estado FROM venta v INNER JOIN persona p ON v.idcliente=p.idpersona INNER JOIN usuario u ON v.idusuario=u.idusuario WHERE v.idventa='$idventa'";
         return ejecutarConsultaSimpleFila($sql);
     }
     
     //Método para desactivar una venta
-    public function desactivar($id){
-        $sql = "UPDATE venta SET condicion='0' WHERE idventa='$id'";
+    public function listarDetalle($idventa)
+    {
+        $sql="SELECT dv.idventa,dv.idarticulo,a.nombre,dv.cantidad,dv.precio_venta,dv.descuento,(dv.cantidad*dv.precio_venta-dv.descuento) as subtotal FROM detalle_venta dv inner join articulo a on dv.idarticulo=a.idarticulo where dv.idventa='$idventa'";
         return ejecutarConsulta($sql);
     }
     
     //Método para activar una venta
-    public function activar($id){
-        $sql = "UPDATE venta SET condicion='1' WHERE idventa='$id'";
-        return ejecutarConsulta($sql);
-    }
-    
-    //Implementar un método para listar todos los registros
-    public function listar(){
-        $sql = "SELECT v.idventa,v.num_comprobante,v.serie_comprobante,v.tipo_comprobante,v.idcliente,p.nombre AS nombrec,v.idusuario,u.nombre AS nombreu,v.fecha_hora,v.impuesto,v.total_venta,v.condicion FROM venta v INNER JOIN persona p ON v.idcliente=p.idpersona INNER JOIN usuario u ON v.idusuario=u.idusuario";
-        return ejecutarConsulta($sql);
-    }
-    
-    public function select(){
-        $sql = "SELECT * FROM venta WHERE condicion = 1";
-        return ejecutarConsulta($sql);
+    public function listar()
+    {
+        $sql="SELECT v.idventa,DATE(v.fecha_hora) as fecha,v.idcliente,p.nombre as cliente,u.idusuario,u.nombre as usuario,v.tipo_comprobante,v.serie_comprobante,v.num_comprobante,v.total_venta,v.impuesto,v.estado FROM venta v INNER JOIN persona p ON v.idcliente=p.idpersona INNER JOIN usuario u ON v.idusuario=u.idusuario ORDER by v.idventa desc";
+        return ejecutarConsulta($sql);		
     }
 }
 ?>
