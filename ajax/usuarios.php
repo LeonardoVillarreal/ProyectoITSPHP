@@ -165,6 +165,8 @@ switch ($_GET["op"]) {
             in_array(5, $valores)?$_SESSION['acceso']=1:$_SESSION['acceso']=0;
             in_array(6, $valores)?$_SESSION['consultac']=1:$_SESSION['consultac']=0;
             in_array(7, $valores)?$_SESSION['consultav']=1:$_SESSION['consultav']=0;
+        }else{
+            echo "Error en la verificación";
         }
         echo json_encode($fetch);
         break;

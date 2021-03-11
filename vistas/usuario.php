@@ -135,12 +135,12 @@ if(!isset($_SESSION["nombre"])){
   
   
  
-  <?php
+ <?php
    }else{
        require 'noacceso.php';
-   }
+  }
    require 'footer.php'; 
-    ?>
+    //?>
   <script src="scripts/usuario.js" type="text/javascript"></script>
   <?php
 }

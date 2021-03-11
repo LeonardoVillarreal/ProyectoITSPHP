@@ -10,7 +10,7 @@ function init(){
         }
         
     });
-    header('Location: login.html');
+    
 }
 function limpiar(){
     $("#idusuario").val("");
@@ -30,6 +30,7 @@ function limpiar(){
 
 function cancelarForm(){
     limpiar();
+    window.location.href='../index.php';
 }
 function guardarYeditar(e){
     e.preventDefault();//No se ejecuta la acción predeterminada
@@ -41,12 +42,11 @@ function guardarYeditar(e){
         type : "POST",
         data: formData,
         contentType: false,
-        processData: false
+        processData: false,
         
-//        success: function(datos){
-//            confirm(datos);
-//            window.location.href='../index.php';
-//        }
+      success: function(datos){
+          bootbox.alert(datos);
+        window.location.href='../index.php';}
     });
     limpiar();
 }
